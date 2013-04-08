@@ -79,7 +79,6 @@
     <ClCompile Include="GridBuilder.cpp" />
     <ClCompile Include="GridPanel.cpp" />
     <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="GridSizeSetter.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -88,15 +87,9 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="GridSizeSetter.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GridSizeSetter.resx">
-      <DependentUpon>GridSizeSetter.h</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>

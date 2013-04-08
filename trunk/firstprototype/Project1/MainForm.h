@@ -1,8 +1,9 @@
 #include <iostream>
 #include "GridBuilder.h"
-#include "GridSizeSetter.h"
+#include <windows.h>
 
 #pragma once
+
 
 namespace Project1 {
 
@@ -55,6 +56,7 @@ namespace Project1 {
 
 	private: System::Windows::Forms::Button^  resetButton;
 	private: System::Windows::Forms::Button^  startButton;
+	private: System::Windows::Forms::Button^  editButton;
 
 
 
@@ -79,6 +81,7 @@ namespace Project1 {
 			this->endFieldToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->controlsPanel = (gcnew System::Windows::Forms::Panel());
+			this->editButton = (gcnew System::Windows::Forms::Button());
 			this->speedLabel = (gcnew System::Windows::Forms::Label());
 			this->speedSetter = (gcnew System::Windows::Forms::NumericUpDown());
 			this->resetButton = (gcnew System::Windows::Forms::Button());
@@ -125,6 +128,7 @@ namespace Project1 {
 			// 
 			// controlsPanel
 			// 
+			this->controlsPanel->Controls->Add(this->editButton);
 			this->controlsPanel->Controls->Add(this->speedLabel);
 			this->controlsPanel->Controls->Add(this->speedSetter);
 			this->controlsPanel->Controls->Add(this->resetButton);
@@ -134,10 +138,20 @@ namespace Project1 {
 			this->controlsPanel->Size = System::Drawing::Size(600, 100);
 			this->controlsPanel->TabIndex = 2;
 			// 
+			// editButton
+			// 
+			this->editButton->Location = System::Drawing::Point(173, 60);
+			this->editButton->Name = L"editButton";
+			this->editButton->Size = System::Drawing::Size(84, 30);
+			this->editButton->TabIndex = 4;
+			this->editButton->Text = L"Edit";
+			this->editButton->UseVisualStyleBackColor = true;
+			this->editButton->Click += gcnew System::EventHandler(this, &MainForm::editButton_Click);
+			// 
 			// speedLabel
 			// 
 			this->speedLabel->AutoSize = true;
-			this->speedLabel->Location = System::Drawing::Point(170, 25);
+			this->speedLabel->Location = System::Drawing::Point(170, 5);
 			this->speedLabel->Name = L"speedLabel";
 			this->speedLabel->Size = System::Drawing::Size(87, 13);
 			this->speedLabel->TabIndex = 3;
@@ -145,7 +159,7 @@ namespace Project1 {
 			// 
 			// speedSetter
 			// 
-			this->speedSetter->Location = System::Drawing::Point(200, 50);
+			this->speedSetter->Location = System::Drawing::Point(200, 22);
 			this->speedSetter->Name = L"speedSetter";
 			this->speedSetter->Size = System::Drawing::Size(35, 20);
 			this->speedSetter->TabIndex = 2;
@@ -190,22 +204,42 @@ namespace Project1 {
 		}
 #pragma endregion
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-					 }
+			 }
 	private: System::Void panel2_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			 }
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			 }
 
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e) {
+				 array<Vertex^,2>^ vertexes = gridBuilder->GetVertexArray();
+				 int count = 0;
+				 cout <<"array length: "<< vertexes->GetLength(0);
+				 for(int i = 0; i < vertexes->GetLength(0);i++){
+					 for(int j = 0; j < vertexes->GetLength(0);j++){
+						 count++;
+						 Vertex^ vertex = vertexes[i,j];
+						 vertex->SetWorking();
+						Sleep(1000);
+						 vertex->SetDone(count);
+					 }
+				 }
+
 			 }
 	private: System::Void resetButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 this->gridBuilder->ClearPanel();
-				 int newGrid = 0;
-				 GridSizeSetter^ form = gcnew GridSizeSetter(newGrid);
+				 this->gridBuilder->AddGridSizeSetter();
 
-				 Application::Run(form);
-				 this->gridBuilder->CreateNewGrid(newGrid);
-				
+			 }
+
+	private: System::Void editButton_Click(System::Object^  sender, System::EventArgs^  e) {
+				 array<Vertex^,2>^ vertexes = gridBuilder->GetVertexArray();
+
+				 for(int i = 0; i < vertexes->GetLength(0);i++){
+					 for(int j = 0; j < vertexes->GetLength(0);j++){
+						 Vertex^ vertex = vertexes[i,j];
+						 vertex->Reset();
+					 }
+				 }
 			 }
 	};
 

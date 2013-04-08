@@ -27,9 +27,6 @@
     <ClCompile Include="GridBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GridSizeSetter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vertex.h">
@@ -44,12 +41,12 @@
     <ClInclude Include="GridBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GridSizeSetter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSizeSetter.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>
