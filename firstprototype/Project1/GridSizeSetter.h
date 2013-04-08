@@ -1,3 +1,5 @@
+
+
 #pragma once
 
 namespace Project1 {
@@ -15,7 +17,7 @@ namespace Project1 {
 	public ref class GridSizeSetter : public System::Windows::Forms::Form
 	{
 	public:
-		GridSizeSetter(int& gridSize) : gridSize(gridSize)
+		GridSizeSetter() 
 		{
 			
 			InitializeComponent();
@@ -25,7 +27,6 @@ namespace Project1 {
 			//
 		}
 		
-	private: int& gridSize;
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -140,7 +141,7 @@ namespace Project1 {
 				 this->~GridSizeSetter();
 			 }
 private: System::Void okButton_Click(System::Object^  sender, System::EventArgs^  e) {
-			 gridSize =(int) this->gridValueSetter->Value;
+			
 			  this->~GridSizeSetter();
 		 }
 };

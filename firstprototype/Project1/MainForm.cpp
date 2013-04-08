@@ -32,9 +32,8 @@ MainForm::~MainForm(void) {
 
 void MainForm::CreateFirstPanel(){
  int newGrid = 0;
-				 GridSizeSetter^ form = gcnew GridSizeSetter(newGrid);
-				 Application::Run(form); 
-				 this->mainPanel->Controls->Add( this->gridBuilder->CreateNewGrid(newGrid));
+			 
+				 this->mainPanel->Controls->Add( this->gridBuilder->GetGridPanel());
 				 cout << "first grid size: "<< newGrid;		
 }
 
