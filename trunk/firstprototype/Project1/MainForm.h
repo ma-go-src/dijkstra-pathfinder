@@ -5,7 +5,7 @@
 #pragma once
 
 
-namespace Project1 {
+//namespace DijkstraPathfinder{
 
 	using namespace std;
 	using namespace System;
@@ -27,7 +27,6 @@ namespace Project1 {
 
 
 
-
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -36,10 +35,6 @@ namespace Project1 {
 
 	private: System::Void CreateFirstPanel();
 	private: System::Windows::Forms::Panel^  panel1;
-
-	private: System::Windows::Forms::ContextMenuStrip^  contextMenuStrip1;
-	private: System::Windows::Forms::ToolStripMenuItem^  startFieldToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  endFieldToolStripMenuItem;
 
 
 	private: System::ComponentModel::IContainer^  components;
@@ -76,9 +71,6 @@ namespace Project1 {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
-			this->startFieldToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->endFieldToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->controlsPanel = (gcnew System::Windows::Forms::Panel());
 			this->editButton = (gcnew System::Windows::Forms::Button());
@@ -86,7 +78,7 @@ namespace Project1 {
 			this->speedSetter = (gcnew System::Windows::Forms::NumericUpDown());
 			this->resetButton = (gcnew System::Windows::Forms::Button());
 			this->startButton = (gcnew System::Windows::Forms::Button());
-			this->contextMenuStrip1->SuspendLayout();
+
 			this->controlsPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->speedSetter))->BeginInit();
 			this->SuspendLayout();
@@ -99,25 +91,7 @@ namespace Project1 {
 			this->panel1->Size = System::Drawing::Size(800, 600);
 			this->panel1->TabIndex = 0;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::panel1_Paint);
-			// 
-			// contextMenuStrip1
-			// 
-			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->startFieldToolStripMenuItem, 
-				this->endFieldToolStripMenuItem});
-			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(127, 48);
-			// 
-			// startFieldToolStripMenuItem
-			// 
-			this->startFieldToolStripMenuItem->Name = L"startFieldToolStripMenuItem";
-			this->startFieldToolStripMenuItem->Size = System::Drawing::Size(126, 22);
-			this->startFieldToolStripMenuItem->Text = L"Start Field";
-			// 
-			// endFieldToolStripMenuItem
-			// 
-			this->endFieldToolStripMenuItem->Name = L"endFieldToolStripMenuItem";
-			this->endFieldToolStripMenuItem->Size = System::Drawing::Size(126, 22);
-			this->endFieldToolStripMenuItem->Text = L"End Field";
+
 			// 
 			// mainPanel
 			// 
@@ -125,6 +99,7 @@ namespace Project1 {
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(600, 600);
 			this->mainPanel->TabIndex = 1;
+			this->mainPanel->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::mainPanel_MouseClick);
 			// 
 			// controlsPanel
 			// 
@@ -195,7 +170,7 @@ namespace Project1 {
 			this->Name = L"MainForm";
 			this->Text = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MyForm_Load);
-			this->contextMenuStrip1->ResumeLayout(false);
+			//			this->contextMenuStrip1->ResumeLayout(false);
 			this->controlsPanel->ResumeLayout(false);
 			this->controlsPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->speedSetter))->EndInit();
@@ -219,7 +194,7 @@ namespace Project1 {
 						 count++;
 						 Vertex^ vertex = vertexes[i,j];
 						 vertex->SetWorking();
-						Sleep(1000);
+						 Sleep(1000);
 						 vertex->SetDone(count);
 					 }
 				 }
@@ -241,6 +216,9 @@ namespace Project1 {
 					 }
 				 }
 			 }
+
+	private: System::Void mainPanel_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			 }
 	};
 
-}
+//}
