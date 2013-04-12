@@ -60,7 +60,7 @@ Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder 
 }
 
 void Vertex::SetWorking(){
-	if(!wall){
+	if(!wall&& !start&&!end){
 
 		this->working = true;
 		this->BackColor = System::Drawing::Color::Orange;}
@@ -68,7 +68,7 @@ void Vertex::SetWorking(){
 
 }
 void Vertex::SetDone(int costFromStart){
-	if(!wall){
+	if(!wall&& !start&&!end){
 
 		this->working = false;
 		this->done = true;
@@ -87,7 +87,7 @@ void Vertex::SetDone(int costFromStart){
 
 void Vertex::Reset(){
 	cout << wall;
-	if(!wall){
+	if(!wall&& !start&&!end){
 		this->done = false;
 		this->Controls->Remove(costLabel);
 		costLabel->Visible= false;

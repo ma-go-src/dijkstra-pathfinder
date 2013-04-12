@@ -6,6 +6,7 @@
 #include "Vertex.h"
 ref class Vertex;
 	using namespace std;
+
 #pragma once
 	public ref  class GridBuilder
 	{
