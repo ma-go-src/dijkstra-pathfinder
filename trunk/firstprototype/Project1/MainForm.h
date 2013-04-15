@@ -184,6 +184,7 @@
 			 }
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			 }
+public: Vertex^ DijkstraStarter(Vertex^ start, Vertex^ end);
 
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 array<Vertex^,2>^ vertexes = gridBuilder->GetVertexArray();

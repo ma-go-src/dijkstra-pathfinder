@@ -20,6 +20,7 @@ ref class Vertex;
 		array<Vertex^, 2> ^  GetVertexArray();
 		System::Void SetStartVertex(Vertex^ vertex);
 		System::Void SetEndVertex(Vertex^ vertex);
+		int GetNumberOfVertices();
 
 	private: System::Windows::Forms::Label^  gridSizeLabel;
 	private: System::Windows::Forms::Button^  okButton;

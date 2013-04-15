@@ -2,9 +2,12 @@
 #define _V_H_
 
 #include "GridBuilder.h"
+#include <vector>
 #pragma once
 
 ref class GridBuilder;
+
+using namespace std;
 
 public ref class Vertex :	public System::Windows::Forms::Panel
 {
@@ -15,6 +18,12 @@ public:
 	System::Void Reset();
 	System::Void SetStart(bool isStart);
 	System::Void SetEnd(bool isEnd);
+	System::Void AddNeighbors(array<Vertex^,1>^ neighbors);
+	array<Vertex^,1>^ neighborList;
+	array<Vertex^,1>^ GetNeighborsArray();
+	 
+	int GetCost();
+	bool IsVisited();
 
 public: GridBuilder^ builder;
 private:
@@ -32,7 +41,9 @@ private: System::Void endFieldItem_Click(System::Object^  sender, System::EventA
 		 int xCoordinate;
 		 int yCoordinate;
 		 int cost;
+		 int neighborCount;
 		 float vertexWidth;
+		 bool visited;
 		 bool working;
 		 bool done;
 		 bool wall;

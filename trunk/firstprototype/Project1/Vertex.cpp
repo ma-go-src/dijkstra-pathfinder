@@ -10,6 +10,7 @@ Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder 
 {
 	this->builder = builder;
 	this->cost = 1;
+	this->neighborCount =0;
 	this->xCoordinate = xCoordinate;
 	this->yCoordinate = yCoordinate;
 	this->vertexWidth = vertexWidth;
@@ -61,7 +62,7 @@ Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder 
 
 void Vertex::SetWorking(){
 	if(!wall&& !start&&!end){
-
+		this->visited = true;
 		this->working = true;
 		this->BackColor = System::Drawing::Color::Orange;}
 	this->Refresh();
@@ -88,6 +89,7 @@ void Vertex::SetDone(int costFromStart){
 void Vertex::Reset(){
 	cout << wall;
 	if(!wall&& !start&&!end){
+		this->visited = false;
 		this->done = false;
 		this->Controls->Remove(costLabel);
 		costLabel->Visible= false;
@@ -103,10 +105,12 @@ void Vertex::SetStart(bool isStart){
 		if(end)
 			end = false;
 		start = true;
-		this ->BackColor =  System::Drawing::Color::Green;}
+		this ->BackColor =  System::Drawing::Color::Green;
+		this->cost =0;}
 	else{
 		start = false;
 		this ->BackColor =  System::Drawing::Color::White;
+		this->cost = 1;
 	}
 }
 
@@ -124,6 +128,20 @@ void Vertex::SetEnd(bool isEnd){
 	}
 }
 
+int Vertex::GetCost(){
+	return cost;
+}
+void Vertex::AddNeighbors(array<Vertex^,1>^ neighbors){
+	neighborList = neighbors;
+}
+
+array<Vertex^,1>^ Vertex::GetNeighborsArray(){
+	return neighborList;
+}
+
+bool Vertex::IsVisited(){
+	return visited;}
+
 #pragma endregion
 void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	if(e->Button == System::Windows::Forms::MouseButtons::Left){
@@ -134,10 +152,13 @@ void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::Mouse
 			if(source->BackColor == System::Drawing::Color::White){
 				source->wall = true;
 				source->BackColor = System::Drawing::Color::Black;
+				this->cost = -1;
+				cout<< "neighbors: "<<neighborList->GetLength(0);
 				cout << "Vertex " << xCoordinate  <<" "<<yCoordinate << "was white, now it's black\n";
 			}else{
 				source->wall = false;
 				source->BackColor = System::Drawing::Color::White;
+				this->cost = 1;
 				cout << "Vertex " << xCoordinate  <<" "<<yCoordinate << "as black, now it's white\n";
 			}
 		}
@@ -152,9 +173,9 @@ void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::Mouse
 }
 
 void  Vertex::startFieldItem_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->builder->SetStartVertex(this);
-		 }
+	this->builder->SetStartVertex(this);
+}
 
-	void Vertex::endFieldItem_Click(System::Object^  sender, System::EventArgs^  e) {
-			this->builder->SetEndVertex(this);
-		 }
+void Vertex::endFieldItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->builder->SetEndVertex(this);
+}
