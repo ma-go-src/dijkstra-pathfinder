@@ -6,13 +6,14 @@
 using namespace std;
 
 #pragma region
-Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder ^builder)
+Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder ^builder, int id)
 {
 	this->builder = builder;
 	this->cost = 1;
 	this->neighborCount =0;
 	this->xCoordinate = xCoordinate;
 	this->yCoordinate = yCoordinate;
+	this->id = id;
 	this->vertexWidth = vertexWidth;
 	this->Location = System::Drawing::Point(xCoordinate*	vertexWidth,yCoordinate*vertexWidth);
 	this->BackColor = System::Drawing::Color::White;

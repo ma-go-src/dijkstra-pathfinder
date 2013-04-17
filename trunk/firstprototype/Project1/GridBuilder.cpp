@@ -43,10 +43,12 @@ void  GridBuilder::AddVertices(int n){
 	float vertexWidth = this->gridPanelWidth / n;
 	cout << "Vertex width! \n";
 	cout << vertexWidth << "\n";
+	int counter = 0;
 	for(int i =0; i<n;i++){
 		//vertexArray[i].resize(n);
 		for(int j =0; j<n;j++){
-			Vertex^ tilePanel = gcnew Vertex(j,i, vertexWidth, this);
+			counter++;
+			Vertex^ tilePanel = gcnew Vertex(j,i, vertexWidth, this, counter);
 			vertexArray[i,j]=tilePanel;
 			this->currentPanel->Controls->Add(tilePanel);
 		}
@@ -105,7 +107,7 @@ void  GridBuilder::AddVertices(int n){
 										neighbors[3] = vertexArray[i-1,j-1];
 										neighbors[4] = vertexArray[i+1,j-1];
 									}else 
-										if(i == 0){
+										if(i == n-1){
 											neighbors = gcnew array<Vertex^, 1>(5);
 											neighbors[0] = vertexArray[i,j-1];
 											neighbors[1] = vertexArray[i,j+1];
