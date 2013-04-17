@@ -12,7 +12,7 @@ using namespace std;
 public ref class Vertex :	public System::Windows::Forms::Panel
 {
 public:
-	Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder ^builder);
+	Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder ^builder, int id);
 	System::Void SetWorking();
 	System::Void SetDone(int costFromStart);
 	System::Void Reset();
@@ -40,6 +40,7 @@ private: System::Void endFieldItem_Click(System::Object^  sender, System::EventA
 		 System::Windows::Forms::Label^ costLabel;
 		 int xCoordinate;
 		 int yCoordinate;
+		 int id;
 		 int cost;
 		 int neighborCount;
 		 float vertexWidth;
