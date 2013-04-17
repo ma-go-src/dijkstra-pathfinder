@@ -81,6 +81,7 @@
     <ClCompile Include="GridBuilder.cpp" />
     <ClCompile Include="GridPanel.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="PathCalculator.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +90,7 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="PathCalculator.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
