@@ -184,19 +184,19 @@
 			 }
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			 }
-public: Vertex^ DijkstraStarter(Vertex^ start, Vertex^ end);
+
 
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e) {
-				 array<Vertex^,2>^ vertexes = gridBuilder->GetVertexArray();
+				 array<Vertex^,2>^ vertexes2D = gridBuilder->GetVertexArray();
+				 array<Vertex^,1>^ vertexes = gcnew array<Vertex^, 1>(vertexes2D->GetLength(0)*vertexes2D->GetLength(0));
 				 int count = 0;
-				 cout <<"array length: "<< vertexes->GetLength(0);
-				 for(int i = 0; i < vertexes->GetLength(0);i++){
-					 for(int j = 0; j < vertexes->GetLength(0);j++){
-						 count++;
-						 Vertex^ vertex = vertexes[i,j];
-						 vertex->SetWorking();
-						 Sleep(1000);
-						 vertex->SetDone(count);
+				 cout <<"array length: "<< vertexes2D->GetLength(0);
+				 for(int i = 0; i < vertexes2D->GetLength(0);i++){
+					 for(int j = 0; j < vertexes2D->GetLength(0);j++){
+						 Vertex^ vertex = vertexes2D[i,j];
+						 vertexes[count] = vertex;
+						 						 count++;
+
 					 }
 				 }
 
