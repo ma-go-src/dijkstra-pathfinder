@@ -21,9 +21,12 @@ public:
 	System::Void AddNeighbors(array<Vertex^,1>^ neighbors);
 	array<Vertex^,1>^ neighborList;
 	array<Vertex^,1>^ GetNeighborsArray();
-	 
+	
+	int GetID();
 	int GetCost();
 	bool IsVisited();
+	bool IsStart();
+	bool IsEnd();
 
 public: GridBuilder^ builder;
 private:

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GridBuilder.h"
 #include <windows.h>
+#include "PathCalculator.h"
 
 #pragma once
 
@@ -22,6 +23,7 @@
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
+
 	public:
 		MainForm(void);
 
@@ -60,6 +62,7 @@
 		/// Required designer variable.
 		/// </summary>
 		GridBuilder^ gridBuilder;
+		PathCalculator pathCalculator;
 
 
 #pragma region Windows Form Designer generated code
@@ -189,16 +192,28 @@
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 array<Vertex^,2>^ vertexes2D = gridBuilder->GetVertexArray();
 				 array<Vertex^,1>^ vertexes = gcnew array<Vertex^, 1>(vertexes2D->GetLength(0)*vertexes2D->GetLength(0));
+				 
 				 int count = 0;
 				 cout <<"array length: "<< vertexes2D->GetLength(0);
 				 for(int i = 0; i < vertexes2D->GetLength(0);i++){
 					 for(int j = 0; j < vertexes2D->GetLength(0);j++){
 						 Vertex^ vertex = vertexes2D[i,j];
 						 vertexes[count] = vertex;
-						 						 count++;
-
+						 count++;
+						 
 					 }
 				 }
+				 
+				 int source;
+				 int target;
+				 for (int q = 0; q < vertexes->Length; q++)
+				 {
+					 if (vertexes[q]->IsStart())
+						 source = q;
+					 if (vertexes[q]->IsEnd())
+						 target = q;
+				 }
+				 pathCalculator.calculatePath(vertexes, source, target);
 
 			 }
 	private: System::Void resetButton_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -220,6 +235,7 @@
 
 	private: System::Void mainPanel_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 			 }
+
 	};
 
 //}

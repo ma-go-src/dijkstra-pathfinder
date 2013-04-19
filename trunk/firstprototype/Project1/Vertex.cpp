@@ -129,6 +129,11 @@ void Vertex::SetEnd(bool isEnd){
 	}
 }
 
+int Vertex::GetID()
+{
+	return id;
+}
+
 int Vertex::GetCost(){
 	return cost;
 }
@@ -141,7 +146,18 @@ array<Vertex^,1>^ Vertex::GetNeighborsArray(){
 }
 
 bool Vertex::IsVisited(){
-	return visited;}
+	return visited;
+}
+
+bool Vertex::IsStart()
+{
+	return start;
+}
+
+bool Vertex::IsEnd()
+{
+	return end;
+}
 
 #pragma endregion
 void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
