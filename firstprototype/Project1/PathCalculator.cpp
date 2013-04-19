@@ -12,17 +12,18 @@ PathCalculator::PathCalculator()
 	
 }
 
-list<int> PathCalculator::calculatePath(int graph[], int source, int target)
+list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int target)
 {
-	graphsize = sizeof(graph);
+	graphsize = vertexes->Length;
 	list<int> path;
 	
-	list<int> neighbourhoods[sizeof(graph)];	// to fill
+	//list<int> neighbourhoods[sizeof(graph)];	// to fill
 
 	int* previous = new int[graphsize];
-	list<int> setOfNodes = arrayToList(graph);
+	list<int> setOfNodes = arrayToList(vertexes);
 
-	int dist[sizeof(graph)];
+	array<int,1>^ dist = gcnew array<int, 1>(graphsize);
+	//int dist[graphsize];
 
 	for (int q = 0; q < graphsize; q++)
 	{
@@ -35,42 +36,51 @@ list<int> PathCalculator::calculatePath(int graph[], int source, int target)
 	list<int>::iterator i;
 	int alt;
 
+	int distanceToNext = 0;
+
 	while (!setOfNodes.empty())
 	{
 		u = getSmallestDistanceNode(setOfNodes, dist);
-		setOfNodes.remove(graph[u]);
+		setOfNodes.remove(vertexes[u]->GetID());
 
-		for (i = neighbourhoods[u].begin(); i != neighbourhoods[u].end(); ++i)
+		//for (i = neighbourhood[u].begin(); i != neighbourhoods[u].end(); ++i)
+		for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
 		{
-			alt = dist[u] + 1;	// distance between each node = 1
-			if (alt < dist[*i - 1])
+			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited()){
+			vertexes[u]->GetNeighborsArray()[z]->SetWorking();
+			alt = dist[u] + distanceToNext;	// distance between each node = 1
+			if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
 			{
-				dist[*i - 1] = alt;
-				previous[*i - 1] = u;
+				dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = alt;
+				previous[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = u;
 			}
-		}
+			cout<<"FOR OK"<<endl;
+			}}
 
 		path.push_back(u);
+		vertexes[u]->SetDone(alt);	// still to test
 		if (u == target)
 			break;
+
+		distanceToNext = 1;
 	}
 
 	return path;
 }
 
-list<int> PathCalculator::arrayToList(int graph[])
+list<int> PathCalculator::arrayToList(array<Vertex^,1>^ vertexes)
 {
 	list<int> setOfNodes;
 
-	for (int q = 0; q < sizeof(graph); q++)
+	for (int q = 0; q < vertexes->Length; q++)
 	{
-		setOfNodes.push_back(graph[q]);
+		setOfNodes.push_back(vertexes[q]->GetID());
 	}
 
 	return setOfNodes;
 }
 
-int PathCalculator::getSmallestDistanceNode(list<int> setOfNodes, int dist[])
+int PathCalculator::getSmallestDistanceNode(list<int> setOfNodes, array<int,1>^ dist)
 {
 	int smallestDistance = INFINITY;
 	int node;
