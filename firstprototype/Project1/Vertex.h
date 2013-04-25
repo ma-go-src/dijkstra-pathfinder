@@ -18,6 +18,7 @@ public:
 	System::Void Reset();
 	System::Void SetStart(bool isStart);
 	System::Void SetEnd(bool isEnd);
+	System::Void SetPath(bool isPath);
 	System::Void AddNeighbors(array<Vertex^,1>^ neighbors);
 	array<Vertex^,1>^ neighborList;
 	array<Vertex^,1>^ GetNeighborsArray();
@@ -53,6 +54,7 @@ private: System::Void endFieldItem_Click(System::Object^  sender, System::EventA
 		 bool wall;
 		 bool end;
 		 bool start;
+		 bool path;
 		 System::Void vertex_Click(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 };
 

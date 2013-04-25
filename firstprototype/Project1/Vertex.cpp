@@ -158,6 +158,15 @@ bool Vertex::IsEnd()
 {
 	return end;
 }
+void Vertex::SetPath(bool isPath){
+	if(!end&& !start){
+		if(isPath){
+			this ->BackColor =  System::Drawing::Color::Blue;
+		}else{
+			this ->BackColor =  System::Drawing::Color::White;
+		}
+	}
+}
 
 #pragma endregion
 void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {

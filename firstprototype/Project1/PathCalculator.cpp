@@ -16,14 +16,11 @@ list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, 
 {
 	graphsize = vertexes->Length;
 	list<int> path;
-	
-	//list<int> neighbourhoods[sizeof(graph)];	// to fill
 
 	int* previous = new int[graphsize];
 	list<int> setOfNodes = arrayToList(vertexes);
 
 	array<int,1>^ dist = gcnew array<int, 1>(graphsize);
-	//int dist[graphsize];
 
 	for (int q = 0; q < graphsize; q++)
 	{
@@ -33,9 +30,7 @@ list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, 
 	dist[source] = 0;
 
 	int u;		//node with smallest value
-	list<int>::iterator i;
 	int alt;
-
 	int distanceToNext = 0;
 
 	while (!setOfNodes.empty())
@@ -43,24 +38,35 @@ list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, 
 		u = getSmallestDistanceNode(setOfNodes, dist);
 		setOfNodes.remove(vertexes[u]->GetID());
 
-		//for (i = neighbourhood[u].begin(); i != neighbourhoods[u].end(); ++i)
 		for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
 		{
-			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited()){
-			vertexes[u]->GetNeighborsArray()[z]->SetWorking();
-			alt = dist[u] + distanceToNext;	// distance between each node = 1
-			if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
+			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited())
 			{
-				dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = alt;
-				previous[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = u;
+				vertexes[u]->GetNeighborsArray()[z]->SetWorking();
+				alt = dist[u] + distanceToNext;	// distance between each node = 1
+
+				if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
+				{
+					dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = alt;
+					previous[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = u;
+				}
 			}
-			cout<<"FOR OK"<<endl;
-			}}
+		}
 
 		path.push_back(u);
-		vertexes[u]->SetDone(alt);	// still to test
+		vertexes[u]->SetDone(alt);
+
 		if (u == target)
+		{
+			int actualNode = u;
+			while (actualNode != source)
+			{
+				actualNode = previous[actualNode];
+				vertexes[actualNode]->SetPath(true);
+			}
+
 			break;
+		}
 
 		distanceToNext = 1;
 	}
