@@ -42,14 +42,7 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited())
 			{
 				vertexes[u]->GetNeighborsArray()[z]->SetWorking();
-				//TEST
-				/*if (vertexes[u]->GetNeighborsArray()[z]->GetXCoordinate() != vertexes[u]->GetXCoordinate() 
-					&& vertexes[u]->GetNeighborsArray()[z]->GetYCoordinate() != vertexes[u]->GetYCoordinate())
-				{
-					distanceToNext = 3;
-				}*/
-				//TEST
-				alt = dist[u] + dist_between(vertexes, u, z);	// distance between each node = 2
+				alt = dist[u] + dist_between(vertexes, u, z);
 
 				if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
 				{
@@ -72,8 +65,6 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 
 			break;
 		}
-
-		//distanceToNext = 2;
 	}
 }
 
