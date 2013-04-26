@@ -7,9 +7,10 @@ public ref class PathCalculator
 {
 	public:
 		PathCalculator();
-		list<int> calculatePath(array<Vertex^,1>^ vertexes, int source, int target);
+		void calculatePath(array<Vertex^,1>^ vertexes, int source, int target);
 		list<int> arrayToList(array<Vertex^,1>^ vertexes);
 		int getSmallestDistanceNode(list<int> setOfNodes, array<int,1>^ dist);
+		int dist_between(array<Vertex^,1>^ vertexes, int node1, int node2);
 		
 	int graphsize;
 };
