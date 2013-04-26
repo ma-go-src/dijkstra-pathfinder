@@ -12,10 +12,9 @@ PathCalculator::PathCalculator()
 	
 }
 
-list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int target)
+void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int target)
 {
 	graphsize = vertexes->Length;
-	list<int> path;
 
 	int* previous = new int[graphsize];
 	list<int> setOfNodes = arrayToList(vertexes);
@@ -43,7 +42,14 @@ list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, 
 			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited())
 			{
 				vertexes[u]->GetNeighborsArray()[z]->SetWorking();
-				alt = dist[u] + distanceToNext;	// distance between each node = 1
+				//TEST
+				/*if (vertexes[u]->GetNeighborsArray()[z]->GetXCoordinate() != vertexes[u]->GetXCoordinate() 
+					&& vertexes[u]->GetNeighborsArray()[z]->GetYCoordinate() != vertexes[u]->GetYCoordinate())
+				{
+					distanceToNext = 3;
+				}*/
+				//TEST
+				alt = dist[u] + dist_between(vertexes, u, z);	// distance between each node = 2
 
 				if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
 				{
@@ -53,7 +59,6 @@ list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, 
 			}
 		}
 
-		path.push_back(u);
 		vertexes[u]->SetDone(alt);
 
 		if (u == target)
@@ -68,10 +73,8 @@ list<int> PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, 
 			break;
 		}
 
-		distanceToNext = 1;
+		//distanceToNext = 2;
 	}
-
-	return path;
 }
 
 list<int> PathCalculator::arrayToList(array<Vertex^,1>^ vertexes)
@@ -102,4 +105,15 @@ int PathCalculator::getSmallestDistanceNode(list<int> setOfNodes, array<int,1>^ 
 	}
 
 	return node;
+}
+
+int PathCalculator::dist_between(array<Vertex^,1>^ vertexes, int node1, int node2)
+{
+	if (vertexes[node1]->GetNeighborsArray()[node2]->GetXCoordinate() != vertexes[node1]->GetXCoordinate() 
+		&& vertexes[node1]->GetNeighborsArray()[node2]->GetYCoordinate() != vertexes[node1]->GetYCoordinate())
+	{
+		return 3;
+	}
+	else
+		return 2;
 }

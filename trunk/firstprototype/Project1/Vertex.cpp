@@ -158,6 +158,17 @@ bool Vertex::IsEnd()
 {
 	return end;
 }
+
+int Vertex::GetXCoordinate()
+{
+	return xCoordinate;
+}
+
+int Vertex::GetYCoordinate()
+{
+	return yCoordinate;
+}
+
 void Vertex::SetPath(bool isPath){
 	if(!end&& !start){
 		if(isPath){
