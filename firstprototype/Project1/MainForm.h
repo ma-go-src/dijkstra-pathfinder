@@ -141,6 +141,7 @@
 			this->speedSetter->Name = L"speedSetter";
 			this->speedSetter->Size = System::Drawing::Size(50, 20);
 			this->speedSetter->TabIndex = 2;
+			this->speedSetter->Minimum = 1;
 			this->speedSetter->Maximum = 1000;
 			// 
 			// resetButton
