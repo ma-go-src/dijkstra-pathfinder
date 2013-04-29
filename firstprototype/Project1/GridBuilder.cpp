@@ -1,7 +1,6 @@
 #include "GridBuilder.h"
 #include <iostream>
 
-
 using namespace std;
 
 GridBuilder::GridBuilder(int gridPanelWidth)
@@ -12,31 +11,25 @@ GridBuilder::GridBuilder(int gridPanelWidth)
 	currentPanel->AddGridSizeSetter(this->gridSizeSetterPanel);
 }
 
-GridPanel^ GridBuilder::GetGridPanel(){
-
-
+GridPanel^ GridBuilder::GetGridPanel() {
 	return currentPanel;
 }
-void GridBuilder::AddGridSizeSetter(){
-	if(currentPanel &&gridSizeSetterPanel){
+void GridBuilder::AddGridSizeSetter() {
+	if(currentPanel && gridSizeSetterPanel) {
 		ClearPanel();
 		currentPanel->AddGridSizeSetter(this->gridSizeSetterPanel);
-
 	}
-
 }
 
-void GridBuilder::ClearPanel(){
-
+void GridBuilder::ClearPanel() {
 	currentPanel->ClearPanel();
-
 }
 
-int GridBuilder::GetNumberOfVertices(){
+int GridBuilder::GetNumberOfVertices() {
 	return this->vertexArray->Length; 
 }
 
-void  GridBuilder::AddVertices(int n){
+void  GridBuilder::AddVertices(int n) {
 	vertexArray = gcnew array<Vertex^, 2>(n, n);
 
 	//vertexArray.resize(n);
@@ -44,77 +37,75 @@ void  GridBuilder::AddVertices(int n){
 	cout << "Vertex width! \n";
 	cout << vertexWidth << "\n";
 	int counter = 0;
-	for(int i =0; i<n;i++){
+	for(int i = 0; i < n; i++) {
 		//vertexArray[i].resize(n);
-		for(int j =0; j<n;j++){
+		for(int j = 0; j < n; j++) {
 			counter++;
-			Vertex^ tilePanel = gcnew Vertex(j,i, vertexWidth, this, counter);
-			vertexArray[i,j]=tilePanel;
+			Vertex^ tilePanel = gcnew Vertex(j, i, vertexWidth, this, counter);
+			vertexArray[i, j] = tilePanel;
 			this->currentPanel->Controls->Add(tilePanel);
 		}
 	}
-	for(int i =0; i<n;i++){
+	for(int i = 0; i < n; i++) {
 		array<Vertex^,1>^ neighbors;
-		for(int j =0; j<n;j++){
-			Vertex^ tilePanel = vertexArray[i,j];
-			if(i == 0 && j ==0){
+		for(int j = 0; j < n; j++){
+			Vertex^ tilePanel = vertexArray[i, j];
+			if(i == 0 && j == 0) {
 				neighbors = gcnew array<Vertex^, 1>(3);
 				neighbors[0] = vertexArray[i+1,j];
 				neighbors[1] = vertexArray[i+1,j+1];
 				neighbors[2] = vertexArray[i,j+1];
-			}else
-				if(i == 0 && j ==n-1){
+			} else
+				if(i == 0 && j == n-1) {
 					neighbors = gcnew array<Vertex^, 1>(3);
 					neighbors[0] = vertexArray[i+1,j];
 					neighbors[1] = vertexArray[i+1,j-1];
 					neighbors[2] = vertexArray[i,j-1];
-				}else
-					if(i == n-1 && j ==n-1){
+				} else
+					if(i == n-1 && j == n-1) {
 						neighbors = gcnew array<Vertex^, 1>(3);
 						neighbors[0] = vertexArray[i-1,j];
 						neighbors[1] = vertexArray[i-1,j-1];
 						neighbors[2] = vertexArray[i,j-1];
-					}else
-						if(i == n-1 && j ==0){
+					} else
+						if(i == n-1 && j == 0) {
 							neighbors = gcnew array<Vertex^, 1>(3);
 							neighbors[0] = vertexArray[i-1,j];
 							neighbors[1] = vertexArray[i-1,j+1];
 							neighbors[2] = vertexArray[i,j+1];
-						}else
-							if(i == 0){
+						} else
+							if(i == 0) {
 								neighbors = gcnew array<Vertex^, 1>(5);
 								neighbors[0] = vertexArray[i,j-1];
 								neighbors[1] = vertexArray[i,j+1];
 								neighbors[2] = vertexArray[i+1,j];
 								neighbors[3] = vertexArray[i+1,j-1];
 								neighbors[4] = vertexArray[i+1,j+1];
-
-							}else
-								if(j == 0){
+							} else
+								if(j == 0) {
 									neighbors = gcnew array<Vertex^, 1>(5);
 									neighbors[0] = vertexArray[i-1,j];
 									neighbors[1] = vertexArray[i+1,j];
 									neighbors[2] = vertexArray[i,j+1];
 									neighbors[3] = vertexArray[i-1,j+1];
 									neighbors[4] = vertexArray[i+1,j+1];
-
-								}else
-									if(j == n-1){
+								} else
+									if(j == n-1) {
 										neighbors = gcnew array<Vertex^, 1>(5);
 										neighbors[0] = vertexArray[i-1,j];
 										neighbors[1] = vertexArray[i+1,j];
 										neighbors[2] = vertexArray[i,j-1];
 										neighbors[3] = vertexArray[i-1,j-1];
 										neighbors[4] = vertexArray[i+1,j-1];
-									}else 
-										if(i == n-1){
+									} else 
+										if(i == n-1) {
 											neighbors = gcnew array<Vertex^, 1>(5);
 											neighbors[0] = vertexArray[i,j-1];
 											neighbors[1] = vertexArray[i,j+1];
 											neighbors[2] = vertexArray[i-1,j];
 											neighbors[3] = vertexArray[i-1,j-1];
 											neighbors[4] = vertexArray[i-1,j+1];
-										}else{
+										} else {
 											neighbors = gcnew array<Vertex^, 1>(8);
 											neighbors[0] = vertexArray[i,j-1];
 											neighbors[1] = vertexArray[i,j+1];
@@ -129,34 +120,29 @@ void  GridBuilder::AddVertices(int n){
 										tilePanel->AddNeighbors(neighbors);
 		}
 	}
-
-
 }
 
-void GridBuilder::SetStartVertex(Vertex^ vertex){
-
-	if(startVertex){
+void GridBuilder::SetStartVertex(Vertex^ vertex) {
+	if(startVertex) {
 		startVertex->SetStart(false);
 	}
 	startVertex = vertex;
 	startVertex->SetStart(true);
-
 }
-void GridBuilder::SetEndVertex(Vertex^ vertex){
 
-	if(endVertex){
+void GridBuilder::SetEndVertex(Vertex^ vertex) {
+	if(endVertex) {
 		endVertex->SetEnd(false);
 	}
 	endVertex = vertex;
 	endVertex->SetEnd(true);
-
 }
 
-array<Vertex^, 2> ^  GridBuilder::GetVertexArray(){
+array<Vertex^, 2> ^  GridBuilder::GetVertexArray() {
 	return vertexArray;
 }
 
-void GridBuilder::InitializeGridSizeSetter(){
+void GridBuilder::InitializeGridSizeSetter() {
 	this->gridSizeLabel = (gcnew System::Windows::Forms::Label());
 	this->gridSizeSetterPanel = (gcnew System::Windows::Forms::Panel());
 	this->gridValueSetter = (gcnew System::Windows::Forms::NumericUpDown());

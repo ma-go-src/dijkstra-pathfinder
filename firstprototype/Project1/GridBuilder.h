@@ -2,10 +2,11 @@
 #define _G_H_
 
 #include "GridPanel.h"
-
 #include "Vertex.h"
+
 ref class Vertex;
-	using namespace std;
+
+using namespace std;
 
 #pragma once
 	public ref  class GridBuilder
@@ -36,12 +37,10 @@ ref class Vertex;
 		//cliext::vector<cliext::vector<Vertex^> ^> vertexArray;
 		array<Vertex^, 2>^  vertexArray;
 
-
-
 	private: System::Void okButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 this->ClearPanel();
 				 this->AddVertices((int)this->gridValueSetter->Value);
-
 			 }
 	};
+
 #endif

@@ -5,29 +5,25 @@
 
 #pragma once
 
-
 //namespace DijkstraPathfinder{
 
-	using namespace std;
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
+using namespace std;
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Windows::Forms;
+using namespace System::Data;
+using namespace System::Drawing;
 
 #define GRIDPANEL_WIDTH 600
 
-	/// <summary>
-	/// Summary for MyForm
-	/// </summary>
-	public ref class MainForm : public System::Windows::Forms::Form
-	{
-
+/// <summary>
+/// Summary for MyForm
+/// </summary>
+public ref class MainForm : public System::Windows::Forms::Form
+{
 	public:
 		MainForm(void);
-
-
 
 	protected:
 		/// <summary>
@@ -48,14 +44,11 @@
 
 	private: System::Windows::Forms::Label^  speedLabel;
 
-
 	private: System::Windows::Forms::NumericUpDown^  speedSetter;
 
 	private: System::Windows::Forms::Button^  resetButton;
 	private: System::Windows::Forms::Button^  startButton;
 	private: System::Windows::Forms::Button^  editButton;
-
-
 
 	private:
 		/// <summary>
@@ -64,8 +57,8 @@
 		GridBuilder^ gridBuilder;
 		PathCalculator pathCalculator;
 
+		#pragma region Windows Form Designer generated code
 
-#pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
@@ -180,9 +173,10 @@
 			this->controlsPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->speedSetter))->EndInit();
 			this->ResumeLayout(false);
-
 		}
-#pragma endregion
+
+	#pragma endregion
+
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 			 }
 	private: System::Void panel2_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
@@ -190,19 +184,17 @@
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			 }
 
-
 	private: System::Void startButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 array<Vertex^,2>^ vertexes2D = gridBuilder->GetVertexArray();
-				 array<Vertex^,1>^ vertexes = gcnew array<Vertex^, 1>(vertexes2D->GetLength(0)*vertexes2D->GetLength(0));
+				 array<Vertex^,1>^ vertexes = gcnew array<Vertex^, 1>(vertexes2D->GetLength(0) * vertexes2D->GetLength(0));
 				 
 				 int count = 0;
-				 cout <<"array length: "<< vertexes2D->GetLength(0);
-				 for(int i = 0; i < vertexes2D->GetLength(0);i++){
-					 for(int j = 0; j < vertexes2D->GetLength(0);j++){
-						 Vertex^ vertex = vertexes2D[i,j];
+				 cout << "array length: " << vertexes2D->GetLength(0);
+				 for(int i = 0; i < vertexes2D->GetLength(0); i++) {
+					 for(int j = 0; j < vertexes2D->GetLength(0); j++) {
+						 Vertex^ vertex = vertexes2D[i, j];
 						 vertexes[count] = vertex;
 						 count++;
-						 
 					 }
 				 }
 				 
@@ -217,20 +209,19 @@
 				 }
 				 int timeInterval = (int)this->speedSetter->Value;
 				 pathCalculator.calculatePath(vertexes, source, target, timeInterval);
-				 
 			 }
+
 	private: System::Void resetButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 this->gridBuilder->ClearPanel();
 				 this->gridBuilder->AddGridSizeSetter();
-
 			 }
 
 	private: System::Void editButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 array<Vertex^,2>^ vertexes = gridBuilder->GetVertexArray();
 
-				 for(int i = 0; i < vertexes->GetLength(0);i++){
-					 for(int j = 0; j < vertexes->GetLength(0);j++){
-						 Vertex^ vertex = vertexes[i,j];
+				 for(int i = 0; i < vertexes->GetLength(0); i++) {
+					 for(int j = 0; j < vertexes->GetLength(0); j++) {
+						 Vertex^ vertex = vertexes[i, j];
 						 vertex->Reset();
 					 }
 				 }
@@ -238,7 +229,4 @@
 
 	private: System::Void mainPanel_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 			 }
-
-	};
-
-//}
+};

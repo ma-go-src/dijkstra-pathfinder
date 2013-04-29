@@ -30,7 +30,6 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 
 	int u;		//node with smallest value
 	int alt;
-	int distanceToNext = 0;
 
 	while (!setOfNodes.empty())
 	{
@@ -41,7 +40,7 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 
 		for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
 		{
-			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited())
+			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited() && !vertexes[u]->GetNeighborsArray()[z]->IsWall())
 			{
 				vertexes[u]->GetNeighborsArray()[z]->SetWorking();
 				alt = dist[u] + dist_between(vertexes, u, z);
@@ -64,7 +63,7 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 				actualNode = previous[actualNode];
 				vertexes[actualNode]->SetPath(true);
 			}
-
+			
 			break;
 		}
 	}

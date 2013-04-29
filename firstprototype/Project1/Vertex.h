@@ -3,6 +3,7 @@
 
 #include "GridBuilder.h"
 #include <vector>
+
 #pragma once
 
 ref class GridBuilder;
@@ -30,6 +31,7 @@ public ref class Vertex :	public System::Windows::Forms::Panel
 		bool IsEnd();
 		int GetXCoordinate();
 		int GetYCoordinate();
+		bool IsWall();
 
 	public: GridBuilder^ builder;
 	private:

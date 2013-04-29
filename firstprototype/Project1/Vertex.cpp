@@ -1,21 +1,20 @@
 #include "Vertex.h"
-
 #include <iostream>
-
 
 using namespace std;
 
 #pragma region
+
 Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder ^builder, int id)
 {
 	this->builder = builder;
 	this->cost = 1;
-	this->neighborCount =0;
+	this->neighborCount = 0;
 	this->xCoordinate = xCoordinate;
 	this->yCoordinate = yCoordinate;
 	this->id = id;
 	this->vertexWidth = vertexWidth;
-	this->Location = System::Drawing::Point(xCoordinate*	vertexWidth,yCoordinate*vertexWidth);
+	this->Location = System::Drawing::Point(xCoordinate*	vertexWidth, yCoordinate*vertexWidth);
 	this->BackColor = System::Drawing::Color::White;
 	this->Size = System::Drawing::Size(vertexWidth, vertexWidth);
 	this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Vertex::vertex_Click);
@@ -25,7 +24,7 @@ Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder 
 	this->builder = builder;
 	this->components = (gcnew System::ComponentModel::Container());
 
-	costLabel = gcnew 	System::Windows::Forms::Label();
+	costLabel = gcnew System::Windows::Forms::Label();
 	costLabel->Font = gcnew System::Drawing::Font(L"Times new roman",vertexWidth/10);
 	costLabel->Height = (vertexWidth/10)+10;
 	costLabel->BackColor = System::Drawing::Color::Yellow;
@@ -61,71 +60,67 @@ Vertex::Vertex(int xCoordinate, int yCoordinate, float vertexWidth, GridBuilder 
 	this->ContextMenuStrip = contextMenuStrip;
 }
 
-void Vertex::SetWorking(){
+void Vertex::SetWorking() {
 	if(!wall&& !start&&!end){
 		this->visited = true;
 		this->working = true;
-		this->BackColor = System::Drawing::Color::Orange;}
+		this->BackColor = System::Drawing::Color::Orange;
+	}
 	this->Refresh();
-
 }
-void Vertex::SetDone(int costFromStart){
-	if(!wall&& !start&&!end){
-
+void Vertex::SetDone(int costFromStart) {
+	if(!wall&& !start&&!end) {
 		this->working = false;
 		this->done = true;
 		this->BackColor = System::Drawing::Color::Yellow;
-		costLabel->Text = yCoordinate+" "+xCoordinate;
+		costLabel->Text = yCoordinate + " " + xCoordinate;
 		costLabel->Location = System::Drawing::Point(20,20);
 		costLabel->Visible = true;
-
-		this->Controls->Add(costLabel);}
+		this->Controls->Add(costLabel);
+	}
 	this->Refresh();
-
-
-
-
 }
 
-void Vertex::Reset(){
+void Vertex::Reset() {
 	cout << wall;
-	if(!wall&& !start&&!end){
+	if(!wall && !start && !end) {
 		this->visited = false;
 		this->done = false;
 		this->Controls->Remove(costLabel);
 		costLabel->Visible= false;
-
-		this ->BackColor =  System::Drawing::Color::White;}
+		this ->BackColor = System::Drawing::Color::White;
+	}
 }
 
-
-void Vertex::SetStart(bool isStart){
-	if(isStart){
+void Vertex::SetStart(bool isStart) {
+	if(isStart) {
 		if(wall)
 			wall = false;
 		if(end)
 			end = false;
 		start = true;
-		this ->BackColor =  System::Drawing::Color::Green;
-		this->cost =0;}
-	else{
+		this->BackColor = System::Drawing::Color::Green;
+		this->cost =0;
+	}
+	else {
 		start = false;
-		this ->BackColor =  System::Drawing::Color::White;
+		this->BackColor = System::Drawing::Color::White;
 		this->cost = 1;
 	}
 }
 
-void Vertex::SetEnd(bool isEnd){
-	if(isEnd){
+void Vertex::SetEnd(bool isEnd) {
+	if(isEnd) {
 		if(wall)
 			wall = false;
 		if(start)
 			start = false;
 		end = true;
-		this ->BackColor =  System::Drawing::Color::Red;}
-	else{
+		this->BackColor = System::Drawing::Color::Red;
+	}
+	else {
 		end = false;
-		this ->BackColor =  System::Drawing::Color::White;
+		this->BackColor = System::Drawing::Color::White;
 	}
 }
 
@@ -134,18 +129,18 @@ int Vertex::GetID()
 	return id;
 }
 
-int Vertex::GetCost(){
+int Vertex::GetCost() {
 	return cost;
 }
-void Vertex::AddNeighbors(array<Vertex^,1>^ neighbors){
+void Vertex::AddNeighbors(array<Vertex^,1>^ neighbors) {
 	neighborList = neighbors;
 }
 
-array<Vertex^,1>^ Vertex::GetNeighborsArray(){
+array<Vertex^,1>^ Vertex::GetNeighborsArray() {
 	return neighborList;
 }
 
-bool Vertex::IsVisited(){
+bool Vertex::IsVisited() {
 	return visited;
 }
 
@@ -169,42 +164,48 @@ int Vertex::GetYCoordinate()
 	return yCoordinate;
 }
 
-void Vertex::SetPath(bool isPath){
-	if(!end&& !start){
-		if(isPath){
-			this ->BackColor =  System::Drawing::Color::Blue;
-		}else{
-			this ->BackColor =  System::Drawing::Color::White;
-		}
+void Vertex::SetPath(bool isPath)
+{
+	if(!end && !start)
+	{
+		if(isPath)
+			this->BackColor = System::Drawing::Color::Blue;
+		else
+			this->BackColor = System::Drawing::Color::White;
 	}
 }
 
-#pragma endregion
-void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	if(e->Button == System::Windows::Forms::MouseButtons::Left){
-		cout << "Vertex " << xCoordinate  <<" "<<yCoordinate << " click! vertex_Click\n";
-		Vertex^ source =(Vertex^) sender;
+bool Vertex::IsWall()
+{
+	return wall;
+}
 
-		if(!end && !start){
-			if(source->BackColor == System::Drawing::Color::White){
+#pragma endregion
+
+void Vertex::vertex_Click(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if(e->Button == System::Windows::Forms::MouseButtons::Left) {
+		cout << "Vertex " << xCoordinate  << " " << yCoordinate << " click! vertex_Click\n";
+		Vertex^ source = (Vertex^) sender;
+
+		if(!end && !start) {
+			if(source->BackColor == System::Drawing::Color::White) {
 				source->wall = true;
 				source->BackColor = System::Drawing::Color::Black;
 				this->cost = -1;
-				cout<< "neighbors: "<<neighborList->GetLength(0);
-				cout << "Vertex " << xCoordinate  <<" "<<yCoordinate << "was white, now it's black\n";
-			}else{
+				cout << "neighbors: "<< neighborList->GetLength(0);
+				cout << "Vertex " << xCoordinate << " " << yCoordinate << "was white, now it's black\n";
+			} else {
 				source->wall = false;
 				source->BackColor = System::Drawing::Color::White;
 				this->cost = 1;
-				cout << "Vertex " << xCoordinate  <<" "<<yCoordinate << "as black, now it's white\n";
+				cout << "Vertex " << xCoordinate << " " << yCoordinate << "as black, now it's white\n";
 			}
 		}
 	}
-	else{
-		if(e->Button == System::Windows::Forms::MouseButtons::Right){
+	else {
+		if(e->Button == System::Windows::Forms::MouseButtons::Right) {
 			//contextMenuStrip->Show();
-			cout<< "Right click";
-
+			cout << "Right click";
 		}
 	}
 }
