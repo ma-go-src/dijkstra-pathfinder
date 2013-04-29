@@ -139,8 +139,9 @@
 			// 
 			this->speedSetter->Location = System::Drawing::Point(200, 22);
 			this->speedSetter->Name = L"speedSetter";
-			this->speedSetter->Size = System::Drawing::Size(35, 20);
+			this->speedSetter->Size = System::Drawing::Size(50, 20);
 			this->speedSetter->TabIndex = 2;
+			this->speedSetter->Maximum = 1000;
 			// 
 			// resetButton
 			// 
@@ -213,8 +214,9 @@
 					 if (vertexes[q]->IsEnd())
 						 target = q;
 				 }
-				 pathCalculator.calculatePath(vertexes, source, target);
-
+				 int timeInterval = (int)this->speedSetter->Value;
+				 pathCalculator.calculatePath(vertexes, source, target, timeInterval);
+				 
 			 }
 	private: System::Void resetButton_Click(System::Object^  sender, System::EventArgs^  e) {
 				 this->gridBuilder->ClearPanel();
