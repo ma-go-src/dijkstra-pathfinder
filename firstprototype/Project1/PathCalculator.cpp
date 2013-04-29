@@ -12,7 +12,7 @@ PathCalculator::PathCalculator()
 	
 }
 
-void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int target)
+void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int target, int mSec)
 {
 	graphsize = vertexes->Length;
 
@@ -34,6 +34,8 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 
 	while (!setOfNodes.empty())
 	{
+		_sleep(mSec);
+
 		u = getSmallestDistanceNode(setOfNodes, dist);
 		setOfNodes.remove(vertexes[u]->GetID());
 
