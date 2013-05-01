@@ -38,6 +38,13 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 		u = getSmallestDistanceNode(setOfNodes, dist);
 		setOfNodes.remove(vertexes[u]->GetID());
 
+		// checks if the start node is completely surrounded by a wall
+		if (dist[u] == INFINITY)
+		{
+			cout << "\nSource is surrounded" << endl;
+			break;
+		}
+
 		for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
 		{
 			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited() && !vertexes[u]->GetNeighborsArray()[z]->IsWall())
