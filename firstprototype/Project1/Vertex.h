@@ -27,6 +27,7 @@ public ref class Vertex :	public System::Windows::Forms::Panel
 		int GetID();
 		int GetCost();
 		bool IsVisited();
+		bool IsWorking();
 		bool IsStart();
 		bool IsEnd();
 		int GetXCoordinate();
