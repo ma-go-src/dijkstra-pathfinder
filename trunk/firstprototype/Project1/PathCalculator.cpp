@@ -9,11 +9,12 @@ using namespace std;
 
 PathCalculator::PathCalculator()
 {
-	
+
 }
 
-void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int target, int mSec)
+void PathCalculator::calculatePath(array<Vertex^,1>^ vertexArray, int source, int target, int mSec)
 {
+	vertexes = vertexArray;
 	graphsize = vertexes->Length;
 
 	int* previous = new int[graphsize];
@@ -36,31 +37,27 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 		_sleep(mSec);
 
 		u = getSmallestDistanceNode(setOfNodes, dist);
-		setOfNodes.remove(vertexes[u]->GetID());
-
-		// checks if the start node is completely surrounded by a wall
-		if (dist[u] == INFINITY)
-		{
-			cout << "\nSource is surrounded" << endl;
-			break;
-		}
-
-		for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
-		{
-			if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited() && !vertexes[u]->GetNeighborsArray()[z]->IsWall())
+		
+		if(u != -1){
+			setOfNodes.remove(vertexes[u]->GetID());
+			for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
 			{
-				vertexes[u]->GetNeighborsArray()[z]->SetWorking();
-				alt = dist[u] + dist_between(vertexes, u, z);
-
-				if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
+				if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited() && !vertexes[u]->GetNeighborsArray()[z]->IsWall())
 				{
-					dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = alt;
-					previous[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = u;
+					vertexes[u]->GetNeighborsArray()[z]->SetWorking();
+					alt = dist[u] + dist_between(vertexes, u, z);
+
+					if (alt < dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1])
+					{
+						dist[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = alt;
+						previous[vertexes[u]->GetNeighborsArray()[z]->GetID() - 1] = u;
+					}
 				}
 			}
-		}
 
-		vertexes[u]->SetDone(alt);
+			vertexes[u]->SetDone(alt);}
+		else 
+			break;
 
 		if (u == target)
 		{
@@ -70,10 +67,14 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexes, int source, int t
 				actualNode = previous[actualNode];
 				vertexes[actualNode]->SetPath(true);
 			}
-			
+
 			break;
 		}
+
+
 	}
+	if(u == -1)
+		cout << "No Path";
 }
 
 list<int> PathCalculator::arrayToList(array<Vertex^,1>^ vertexes)
@@ -91,7 +92,7 @@ list<int> PathCalculator::arrayToList(array<Vertex^,1>^ vertexes)
 int PathCalculator::getSmallestDistanceNode(list<int> setOfNodes, array<int,1>^ dist)
 {
 	int smallestDistance = INFINITY;
-	int node;
+	int node = -1;
 
 	list<int>::iterator i;
 	for (i = setOfNodes.begin(); i != setOfNodes.end(); ++i)

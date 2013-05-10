@@ -107,6 +107,7 @@ void Vertex::SetStart(bool isStart) {
 		this->BackColor = System::Drawing::Color::White;
 		this->cost = 1;
 	}
+	working = isStart;
 }
 
 void Vertex::SetEnd(bool isEnd) {
@@ -122,6 +123,7 @@ void Vertex::SetEnd(bool isEnd) {
 		end = false;
 		this->BackColor = System::Drawing::Color::White;
 	}
+	working = isEnd;
 }
 
 int Vertex::GetID()
@@ -142,6 +144,10 @@ array<Vertex^,1>^ Vertex::GetNeighborsArray() {
 
 bool Vertex::IsVisited() {
 	return visited;
+}
+
+bool Vertex::IsWorking() {
+	return working;
 }
 
 bool Vertex::IsStart()
