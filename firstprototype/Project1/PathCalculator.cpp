@@ -42,8 +42,7 @@ void PathCalculator::calculatePath(array<Vertex^,1>^ vertexArray, int source, in
 			setOfNodes.remove(vertexes[u]->GetID());
 			for (int z = 0; z < vertexes[u]->GetNeighborsArray()->Length; z++)
 			{
-				if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited() && !vertexes[u]->GetNeighborsArray()[z]->IsWall()
-					&& !IsDiagonalUnpassable(u, z))
+				if(!vertexes[u]->GetNeighborsArray()[z]->IsVisited() && !vertexes[u]->GetNeighborsArray()[z]->IsWall())
 				{
 					vertexes[u]->GetNeighborsArray()[z]->SetWorking();
 					alt = dist[u] + dist_between(vertexes, u, z);
@@ -117,31 +116,4 @@ int PathCalculator::dist_between(array<Vertex^,1>^ vertexes, int node1, int node
 	}
 	else
 		return 2;
-}
-
-bool PathCalculator::IsDiagonalUnpassable(int node, int neigh)
-{
-	bool isUnpassable = false;
-	
-	if (vertexes[node]->GetNeighborsArray()->Length == 3)
-	{
-		
-	}
-	else if (vertexes[node]->GetNeighborsArray()->Length == 5)
-	{
-
-	}
-	else
-	{
-		if (neigh == 3 && vertexes[node]->GetNeighborsArray()[2]->IsWall() && vertexes[node]->GetNeighborsArray()[0]->IsWall())
-			isUnpassable = true;
-		else if (neigh == 4 && vertexes[node]->GetNeighborsArray()[2]->IsWall() && vertexes[node]->GetNeighborsArray()[1]->IsWall())
-			isUnpassable = true;
-		else if (neigh == 6 && vertexes[node]->GetNeighborsArray()[0]->IsWall() && vertexes[node]->GetNeighborsArray()[5]->IsWall())
-			isUnpassable = true;
-		else if (neigh == 7 && vertexes[node]->GetNeighborsArray()[5]->IsWall() && vertexes[node]->GetNeighborsArray()[1]->IsWall())
-			isUnpassable = true;
-	}
-
-	return isUnpassable;
 }
